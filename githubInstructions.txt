@@ -1,0 +1,16 @@
+Instructions for Pushing
+1. Run a git status to verify what file have changed
+2. For each file you want to add run git add filename
+3. Then run git commit -m "Message of what you did."
+4. Finally run git push origin the branch name ex: git push origin dmeiererChanges
+5. Go github and click pull request then click new pull request
+6. Master should be the first branch selected then select your branch
+7. Click create new pull request
+
+
+Instructions for Pulling
+1. Go to where your Graphing project is located
+2. Run git pull origin master
+3. Run git checkout master
+4. Run git pull
+5. Run git checkout branchname ex git checkout dmeiererChanges
