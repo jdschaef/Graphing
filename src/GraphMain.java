@@ -38,16 +38,17 @@ public class GraphMain {
 				    break;
 			    case 5:
 				    System.out.println("Exit selected");
+				    System.exit(0);
 				    break;
 			    default:
 			      System.out.println("Invalid selection");
+			      System.exit(0);
 			      break; // This break is not really necessary
 			    }
 			   
 			    
 			    
-			    System.out.println("Select a query for the Film Database");
-			    
+			    System.out.println("Select a query for the Film Database");	    
 			    query = inString.nextLine();
 			    
 			    System.out.println("You typed: " + query);
@@ -58,7 +59,7 @@ public class GraphMain {
 			    Connection c = null;
 			    try {
 			      Class.forName("org.sqlite.JDBC");
-			      c = DriverManager.getConnection("jdbc:sqlite:C:\\sqlite\\film.db");
+			      c = DriverManager.getConnection("jdbc:sqlite:C:\\sqlite\\filmdb.db");
 			    } catch ( Exception e ) {
 			      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 			      System.exit(0);
@@ -69,11 +70,17 @@ public class GraphMain {
 			    	stmt = c.createStatement();
 				    ResultSet rs = stmt.executeQuery(query);
 				    int i = 0;
+				    Scanner scan = new Scanner(System.in);
+				    System.out.println("Enter the first column name for X axis: ");	    
+			    	String arg1 = scan.nextLine();
+			    	System.out.println("Enter the first column name for Y axis: ");	   
+			    	String arg2 = scan.nextLine();
 				    while(rs.next()){
-				    	String countryid = rs.getString("country_code");
-				    	String countryName = rs.getString("country_name");
-				    	String continent = rs.getString("continent");   	
-				    	System.out.println(i+" Country Code: "+countryid+" Country Name: "+countryName+" Continent: "+continent+"\n");
+				    	System.out.println("Select a query for the Film Database");	    
+						query = inString.nextLine();
+				    	String newVal1 = rs.getString(arg1);
+				    	String newVal2 = rs.getString(arg2);
+				    	System.out.println(i+" Column 1: "+newVal1+" Country Name: "+newVal2+" \n");
 				    	i++;
 				    	}
 			    	}
@@ -81,10 +88,7 @@ public class GraphMain {
 			    	System.out.println("Could not execute query!\n");
 			    }
 			    
+			    
 			 }
-			    
-			    
-
-			    			    
-		    
-}
+	    
+} //End Main
