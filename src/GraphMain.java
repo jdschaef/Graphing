@@ -52,11 +52,19 @@ public class GraphMain {
 			    query = inString.nextLine();
 			    
 			    System.out.println("You typed: " + query);
-			    inInt.close();
-			    inString.close();
+			    
 			    
 			    Statement stmt = null;
 			    Connection c = null;
+			    
+			    Scanner scan1 = new Scanner(System.in);
+			    Scanner scan2 = new Scanner(System.in);
+			    System.out.println("\n\nEnter the first column name for X axis: ");	    
+		    	String arg1 = scan1.nextLine();
+		    	System.out.println("Enter the first column name for Y axis: ");	   
+		    	String arg2 = scan2.nextLine();
+		        System.out.println(arg1);
+		        System.out.println(arg2);
 			    try {
 			      Class.forName("org.sqlite.JDBC");
 			      c = DriverManager.getConnection("jdbc:sqlite:C:\\sqlite\\filmdb.db");
@@ -66,21 +74,15 @@ public class GraphMain {
 			    }
 			    System.out.println("Opened database successfully");
 			  //  c.setAutoCommit(false);
+			    
 			    try {
 			    	stmt = c.createStatement();
 				    ResultSet rs = stmt.executeQuery(query);
 				    int i = 0;
-				    Scanner scan = new Scanner(System.in);
-				    System.out.println("Enter the first column name for X axis: ");	    
-			    	String arg1 = scan.nextLine();
-			    	System.out.println("Enter the first column name for Y axis: ");	   
-			    	String arg2 = scan.nextLine();
-				    while(rs.next()){
-				    	System.out.println("Select a query for the Film Database");	    
-						query = inString.nextLine();
+				    while(rs.next()){ 
 				    	String newVal1 = rs.getString(arg1);
 				    	String newVal2 = rs.getString(arg2);
-				    	System.out.println(i+" Column 1: "+newVal1+" Country Name: "+newVal2+" \n");
+				    	System.out.println(i+" "+ arg1 +": " +newVal1+" "+ arg2 +": "+newVal2+" \n");
 				    	i++;
 				    	}
 			    	}
@@ -88,7 +90,10 @@ public class GraphMain {
 			    	System.out.println("Could not execute query!\n");
 			    }
 			    
-			    
+			    inInt.close();
+			    inString.close();
+			    scan1.close();
+			    scan2.close();
 			 }
 	    
 } //End Main
