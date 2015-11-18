@@ -16,7 +16,7 @@ import org.jfree.chart.ChartUtilities;
 
 public class GraphMain {
 		 public static void main(String[] args) {
-			 
+			    
 		        int choice;
 		        Scanner inInt = new Scanner(System.in);
 			    Statement stmt = null;
@@ -86,19 +86,17 @@ public static void Pie(Connection c, Statement stmt) {
     Scanner inString = new Scanner(System.in);
     Scanner scan1 = new Scanner(System.in);
 	Scanner scan2 = new Scanner(System.in);
-	System.out.println("Select a query for the Film Database");	    
+	System.out.println("Enter a query for the Film Database:");	    
     String query = inString.nextLine();
-    
-    
-
-    
+  
     System.out.println("============================");
     System.out.println("|    Creating Pie Graph    |");
     System.out.println("============================");
-    System.out.println("\n\nEnter the first column name for X axis: ");	    
-	String arg1 = scan1.nextLine();
-	System.out.println("Enter the first column name for Y axis: ");	   
-	String arg2 = scan2.nextLine();
+       
+	String arg1;
+	String arg2;
+    String change;
+    
     
 	ArrayList<String> arg1List = new ArrayList<String>();
     ArrayList<Integer> arg2List = new ArrayList<Integer>();
@@ -106,8 +104,16 @@ public static void Pie(Connection c, Statement stmt) {
     try {
     	stmt = c.createStatement();
 	    ResultSet rs = stmt.executeQuery(query);
+	    int colType = rs.getMetaData().getColumnType(2);
+	    arg1 =  rs.getMetaData().getColumnName(1);
+	    arg2 =  rs.getMetaData().getColumnName(2);
+        /*This should change the X variable if it is a string or graph*/
+	    if(determineType(colType)==true){
+	    	change = arg1;
+	    	arg1 = arg2;
+	    	arg2 = change;   	
+	    }
 	    int i = 1;
-
 	    while(rs.next()){ 
 	    	String newVal1 = rs.getString(arg1);
 	        Integer newVal2 = rs.getInt(arg2);
@@ -154,16 +160,16 @@ public static void Histogram(Connection c, Statement stmt) {
     Scanner inString = new Scanner(System.in);
     Scanner scan1 = new Scanner(System.in);
 	Scanner scan2 = new Scanner(System.in);
-	System.out.println("Select a query for the Film Database");	    
+	System.out.println("Enter a query for the Film Database:");	    
     String query = inString.nextLine();
     
     System.out.println("============================");
     System.out.println("| Creating Histogram Graph |");
     System.out.println("============================");
-    System.out.println("\n\nEnter the first column name for X axis: ");	    
-	String arg1 = scan1.nextLine();
-	System.out.println("Enter the first column name for Y axis: ");	   
-	String arg2 = scan2.nextLine();
+  
+	String arg1;
+	String arg2;
+	String change;
     
 	ArrayList<String> arg1List = new ArrayList<String>();
     ArrayList<Integer> arg2List = new ArrayList<Integer>();
@@ -171,8 +177,16 @@ public static void Histogram(Connection c, Statement stmt) {
     try {
     	stmt = c.createStatement();
 	    ResultSet rs = stmt.executeQuery(query);
+	    int colType = rs.getMetaData().getColumnType(2);
+	    arg1 =  rs.getMetaData().getColumnName(1);
+	    arg2 =  rs.getMetaData().getColumnName(2);
+        /*This should change the X variable if it is a string or graph*/
+	    if(determineType(colType)==true){
+	    	change = arg1;
+	    	arg1 = arg2;
+	    	arg2 = change;   	
+	    }
 	    int i = 1;
-
 	    while(rs.next()){ 
 	    	String newVal1 = rs.getString(arg1);
 	        Integer newVal2 = rs.getInt(arg2);
@@ -206,6 +220,10 @@ public static void Histogram(Connection c, Statement stmt) {
     } catch (Exception e) {
         System.out.println("Problem occurred creating chart.");
     }
+    
+    inString.close();
+    scan1.close();
+    scan2.close();
 }//End Histogram
 
 public static void Bar(Connection c, Statement stmt) {
@@ -213,16 +231,16 @@ public static void Bar(Connection c, Statement stmt) {
     Scanner inString = new Scanner(System.in);
     Scanner scan1 = new Scanner(System.in);
 	Scanner scan2 = new Scanner(System.in);
-	System.out.println("Select a query for the Film Database");	    
+	System.out.println("Enter a query for the Film Database:");	    
     String query = inString.nextLine();
        
     System.out.println("============================");
     System.out.println("|    Creating Bar Graph    |");
     System.out.println("============================");
-    System.out.println("\n\nEnter the first column name for X axis: ");	    
-	String arg1 = scan1.nextLine();
-	System.out.println("Enter the first column name for Y axis: ");	   
-	String arg2 = scan2.nextLine();
+    
+	String arg1;
+	String arg2;
+	String change;
     
     
 	ArrayList<String> arg1List = new ArrayList<String>();
@@ -231,8 +249,16 @@ public static void Bar(Connection c, Statement stmt) {
     try {
     	stmt = c.createStatement();
 	    ResultSet rs = stmt.executeQuery(query);
+	    int colType = rs.getMetaData().getColumnType(2);
+	    arg1 =  rs.getMetaData().getColumnName(1);
+	    arg2 =  rs.getMetaData().getColumnName(2);
+        /*This should change the X variable if it is a string or graph*/
+	    if(determineType(colType)==true){
+	    	change = arg1;
+	    	arg1 = arg2;
+	    	arg2 = change;   	
+	    }
 	    int i = 1;
-
 	    while(rs.next()){ 
 	    	String newVal1 = rs.getString(arg1);
 	        Integer newVal2 = rs.getInt(arg2);
@@ -280,16 +306,15 @@ public static void Scatter(Connection c, Statement stmt) {
     Scanner inString = new Scanner(System.in);
     Scanner scan1 = new Scanner(System.in);
 	Scanner scan2 = new Scanner(System.in);
-	System.out.println("Select a query for the Film Database");	    
+	System.out.println("Enter a query for the Film Database:");	    
     String query = inString.nextLine();
     
     System.out.println("============================");
     System.out.println("|  Creating Scatter Graph   ");
     System.out.println("============================");
-    System.out.println("\n\nEnter the first column name for X axis: ");	    
-   	String arg1 = scan1.nextLine();
-   	System.out.println("Enter the first column name for Y axis: ");	   
-   	String arg2 = scan2.nextLine();
+     
+   	String arg1;
+   	String arg2;
        
        
    	ArrayList<Integer> arg1List = new ArrayList<Integer>();
@@ -298,8 +323,14 @@ public static void Scatter(Connection c, Statement stmt) {
        try {
        	stmt = c.createStatement();
    	    ResultSet rs = stmt.executeQuery(query);
+   	    int colType = rs.getMetaData().getColumnType(2);
+   	    arg1 =  rs.getMetaData().getColumnName(1);
+   	    arg2 =  rs.getMetaData().getColumnName(2);
+           /*This should change the X variable if it is a string or graph*/
+   	    if(determineType(colType)==true){
+   	    	System.out.println("A scatter plot should query a database and return two numbers!");  	
+   	    }
    	    int i = 1;
-
    	    while(rs.next()){ 
    	    	Integer newVal1 = rs.getInt(arg1);
    	        Integer newVal2 = rs.getInt(arg2);
@@ -352,29 +383,30 @@ public static void Line(Connection c, Statement stmt) {
     Scanner inString = new Scanner(System.in);
     Scanner scan1 = new Scanner(System.in);
 	Scanner scan2 = new Scanner(System.in);
-	System.out.println("Select a query for the Film Database");	    
+	System.out.println("Enter a query for the Film Database:");	    
     String query = inString.nextLine();
-    
-    
-
-    
+        
     System.out.println("============================");
     System.out.println("|   Creating Line Graph     ");
     System.out.println("============================");
-    System.out.println("\n\nEnter the first column name for X axis: ");	    
-   	String arg1 = scan1.nextLine();
-   	System.out.println("Enter the first column name for Y axis: ");	   
-   	String arg2 = scan2.nextLine();
-       
-       
+    
+   	String arg1;
+   	String arg2;
+        
    	ArrayList<Integer> arg1List = new ArrayList<Integer>();
     ArrayList<Integer> arg2List = new ArrayList<Integer>();
        
-       try {
+    try {
        	stmt = c.createStatement();
    	    ResultSet rs = stmt.executeQuery(query);
+   	    int colType = rs.getMetaData().getColumnType(2);
+   	    arg1 =  rs.getMetaData().getColumnName(1);
+   	    arg2 =  rs.getMetaData().getColumnName(2);
+           /*This should change the X variable if it is a string or graph*/
+   	    if(determineType(colType)==true){
+   	    	System.out.println("A line graph should query a database and return two numbers!");  	
+   	    }
    	    int i = 1;
-
    	    while(rs.next()){ 
    	    	Integer newVal1 = rs.getInt(arg1);
    	        Integer newVal2 = rs.getInt(arg2);
@@ -420,8 +452,20 @@ public static void Line(Connection c, Statement stmt) {
     scan2.close();
 }//End Line
 
-	    
-} //End Graph
+private static boolean determineType(int colType){
+	
+	if(colType == 12 || colType == 91){
+		return true;
+	}
+	return false;
+	
+
+}
+
+
+
+
+} //End GraphMain
 
 
 
