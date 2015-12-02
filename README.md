@@ -6,5 +6,5 @@ This project will create graphs from sql queries that are accessed via jdbc.
 Work done by:
 Batirbek Matchanov,
 Jared Schaefer,
-and David Meierer
-
+David Meierer,
+and Corey Porubsky
